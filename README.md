@@ -1,1 +1,1 @@
-# gatsby-plugin-internationalization-
+# gatsby-plugin-internationalization
