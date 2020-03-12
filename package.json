@@ -1,0 +1,20 @@
+{
+  "name": "gatsby-plugin-internationalization",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/herecydev/gatsby-plugin-internationalization.git",
+  "author": "herecydev <herecy@live.co.uk>",
+  "license": "MIT",
+  "scripts": {
+    "build": "copyfiles --up 1 src/*.js ."
+  },
+  "peerDependencies": {
+    "gatsby": "^2.0.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.2.0",
+    "prettier": "^1.19.1"
+  }
+}
