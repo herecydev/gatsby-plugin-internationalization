@@ -54,9 +54,38 @@ const Index = () => {
 export default Index;
 ```
 
+## API
+
+## LocalizedLink
+
+`<LocalizedLink to="/foo">Foo</LocalizedLink>`
+
+A component that accepts all the props of Gatsby's `Link` component but will automatically prefix the correct locale onto the pathname, i.e. `/foo` will navigate to `/en-US/foo` if the current locale is `en-US`.
+
+### useLocalization
+
+`const { locale, defaultLocale, locales, localizedNavigate } = useLocalization()`
+
+Returns an object that contains:
+
+- locale - The current locale
+- defaultLocale - The default locale configured
+- locales - An array of locales configured
+- localizedNavigate - A function that accepts a path and will navigate to the localized version of that path
+
+### LocalizationContext
+
+```jsx
+<LocalizationContext.Provider value={{ locale, defaultLocale, locales, localizedNavigate }}>
+  <MyComponent />
+</LocalizationContext.Provider>
+```
+
+The [React context](https://reactjs.org/docs/context.html) that is used by this plugin. Very useful if you're trying to test your Gatsby site. You can implement a provider in your test code that provides the correct data for the other API components.
+
 ## Configuration
 
-| Name          | Type     | Description                                                                                                                                                                                                                                             | Example            |
-| ------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| locales       | string[] | An array of locales, where each locale will be made available to each page. Each locale will be prefixed to the path, for example: `/gatsby-is-awesome/` becomes `/en-gb/gatsby-is-awesome/`. Use **ISO 639-1** and **ISO 3166** seperated with a hypen | ["en-GB", "en-US"] |
-| defaultLocale | string   | Prevents this locale being prefixed to the path. Useful if you have a predominant language. All other locales will still be prefixed to the path as normal                                                                                              | "en-GB"            |
+| Name          | Type     | Required | Description                                                                                                                                                                                                                                             | Example            |
+| ------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| locales       | string[] | Required | An array of locales, where each locale will be made available to each page. Each locale will be prefixed to the path, for example: `/gatsby-is-awesome/` becomes `/en-gb/gatsby-is-awesome/`. Use **ISO 639-1** and **ISO 3166** seperated with a hypen | ["en-GB", "en-US"] |
+| defaultLocale | string   | Optional | Prevents this locale being prefixed to the path. Useful if you have a predominant language. All other locales will still be prefixed to the path as normal                                                                                              | "en-GB"            |
