@@ -1,3 +1,3 @@
-import withLocalization from "./withLocalization"
+import withLocalization from "./withLocalization";
 
-export const wrapPageElement = withLocalization
+export const wrapPageElement = withLocalization;

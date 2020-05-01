@@ -12,10 +12,10 @@ module.exports = {
       resolve: `gatsby-plugin-internationalization`,
       options: {
         locales: ["en-GB", "en-US"],
-        defaultLocale: "en-GB"
-      }
-    }
-  ]
+        defaultLocale: "en-GB",
+      },
+    },
+  ],
 };
 ```
 
@@ -30,6 +30,24 @@ const Index = () => {
   return (
 - 	   <Link to="/gatsby-is-awesome">Awesome page</Link>
 +      <LocalizedLink to="/gatsby-is-awesome">And now localized too!</LocalizedLink>
+  );
+};
+
+export default Index;
+```
+
+Similarly, replace `navigate` with `localizedNavigate` that is returned from `useLocalization`.
+
+```diff
+import * as React from "react";
+-import { navigate } from "gatsby";
++import { useLocalization } from "gatsby-plugin-internationalization";
+
+const Index = () => {
++ const { localizedNavigate } = useLocalization();
+  return (
+- 	   <button onClick={() => navigate("/")}>Go back</button>
++      <button onClick={() => localizedNavigate("/")}>Go back</button>
   );
 };
 

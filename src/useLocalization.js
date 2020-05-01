@@ -1,6 +1,4 @@
 import { useContext } from "react";
-import { localizationContext } from "./LocalizationContext"
+import { LocalizationContext } from "./LocalizationContext";
 
-const useLocalization = () => useContext(localizationContext);
-
-export default useLocalization;
+export const useLocalization = () => useContext(LocalizationContext);

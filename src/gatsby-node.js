@@ -2,7 +2,7 @@ exports.onCreatePage = ({ page, actions }, pluginOptions) => {
   if (page.context.locales) {
     return;
   }
-  
+
   const { createPage, deletePage } = actions;
   deletePage(page);
 
