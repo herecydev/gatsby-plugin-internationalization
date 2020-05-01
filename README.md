@@ -56,7 +56,7 @@ export default Index;
 
 ## API
 
-## LocalizedLink
+### LocalizedLink
 
 `<LocalizedLink to="/foo">Foo</LocalizedLink>`
 
