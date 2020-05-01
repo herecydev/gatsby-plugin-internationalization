@@ -28,7 +28,7 @@ import * as React from "react";
 
 const Index = () => {
   return (
-- 	   <Link to="/gatsby-is-awesome">Awesome page</Link>
+-      <Link to="/gatsby-is-awesome">Awesome page</Link>
 +      <LocalizedLink to="/gatsby-is-awesome">And now localized too!</LocalizedLink>
   );
 };
@@ -46,7 +46,7 @@ import * as React from "react";
 const Index = () => {
 + const { localizedNavigate } = useLocalization();
   return (
-- 	   <button onClick={() => navigate("/")}>Go back</button>
+-      <button onClick={() => navigate("/")}>Go back</button>
 +      <button onClick={() => localizedNavigate("/")}>Go back</button>
   );
 };
