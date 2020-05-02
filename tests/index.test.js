@@ -2,8 +2,8 @@ import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/react";
 import { navigate } from "gatsby";
 import * as React from "react";
-import { LocalizedLink, useLocalization } from "./index";
-import { LocalizationProvider } from "./LocalizationContext";
+import { LocalizedLink, useLocalization } from "../src/index";
+import { LocalizationProvider } from "../src/LocalizationContext";
 
 const locales = ["en-GB", "en-US"];
 
