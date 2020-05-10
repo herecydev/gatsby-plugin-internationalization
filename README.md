@@ -1,5 +1,18 @@
 # gatsby-plugin-internationalization
 
+No-nonsense framework for providing internationalization into your Gatsby site. Providing sensible, defined defaults without polluting your site with polyfills and messing with globals.
+
+## Outcomes
+
+By providing an array of locales, all pages in your site will automatically be prefixed with each locale. The `lang` html attribute will be set correctly as well
+
+## Configuration
+
+| Name          | Type     | Required | Description                                                                                                                                                                                                                                             | Example            |
+| ------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| locales       | string[] | Required | An array of locales, where each locale will be made available to each page. Each locale will be prefixed to the path, for example: `/gatsby-is-awesome/` becomes `/en-gb/gatsby-is-awesome/`. Use **ISO 639-1** and **ISO 3166** seperated with a hypen | ["en-GB", "en-US"] |
+| defaultLocale | string   | Optional | Prevents this locale being prefixed to the path. Useful if you have a predominant language. All other locales will still be prefixed to the path as normal                                                                                              | "en-GB"            |
+
 ## Usage
 
 In your `gatsby-config.js`
@@ -82,10 +95,3 @@ Returns an object that contains:
 ```
 
 The [React context](https://reactjs.org/docs/context.html) that is used by this plugin. Very useful if you're trying to test your Gatsby site. You can implement a provider in your test code that provides the correct data for the other API components.
-
-## Configuration
-
-| Name          | Type     | Required | Description                                                                                                                                                                                                                                             | Example            |
-| ------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| locales       | string[] | Required | An array of locales, where each locale will be made available to each page. Each locale will be prefixed to the path, for example: `/gatsby-is-awesome/` becomes `/en-gb/gatsby-is-awesome/`. Use **ISO 639-1** and **ISO 3166** seperated with a hypen | ["en-GB", "en-US"] |
-| defaultLocale | string   | Optional | Prevents this locale being prefixed to the path. Useful if you have a predominant language. All other locales will still be prefixed to the path as normal                                                                                              | "en-GB"            |
