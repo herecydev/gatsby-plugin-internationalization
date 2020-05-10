@@ -1,3 +1,6 @@
+.github
+__mocks__
 src
+tests
 samples
 babel.config.js
