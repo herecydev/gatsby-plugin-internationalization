@@ -86,12 +86,24 @@ Returns an object that contains:
 - locales - An array of locales configured
 - localizedNavigate - A function that accepts a path and will navigate to the localized version of that path
 
+### LocalizationProvider
+
+```jsx
+<LocalizationProvider pageContext={{ locale, defaultLocale, locales }}>
+  <MyComponent />
+</LocalizationProvider>
+```
+
+The [React context](https://reactjs.org/docs/context.html) that is used by this plugin. Only really useful if you're trying to test your Gatsby site. You can use in your test code, providing the correct data for the child components.
+
 ### LocalizationContext
 
 ```jsx
-<LocalizationContext.Provider value={{ locale, defaultLocale, locales, localizedNavigate }}>
+<LocalizationContext.Provider
+  value={{ locale, defaultLocale, locales, localizedNavigate }}
+>
   <MyComponent />
 </LocalizationContext.Provider>
 ```
 
-The [React context](https://reactjs.org/docs/context.html) that is used by this plugin. Very useful if you're trying to test your Gatsby site. You can implement a provider in your test code that provides the correct data for the other API components.
+The [React context](https://reactjs.org/docs/context.html) that is used by this plugin. Can be used to provide more specific behavior.
