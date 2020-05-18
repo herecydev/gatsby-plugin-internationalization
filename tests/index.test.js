@@ -110,16 +110,37 @@ describe("gatsby-plugin-internationalization", () => {
       );
 
       expect(getByText("Bar")).toHaveAttribute("href", "bar");
-	});
-	
-	it("Renders a localized href when current locale is not the default locale", () => {
-		const { getByText } = renderWithProvider(
-		  <LocalizedLink to="bar">Bar</LocalizedLink>,
-		  "en-US",
-		  "en-GB"
-		);
-  
-		expect(getByText("Bar")).toHaveAttribute("href", "en-us/bar");
-	  });
+    });
+
+    it("Renders a localized href when current locale is not the default locale", () => {
+      const { getByText } = renderWithProvider(
+        <LocalizedLink to="bar">Bar</LocalizedLink>,
+        "en-US",
+        "en-GB"
+      );
+
+      expect(getByText("Bar")).toHaveAttribute("href", "en-us/bar");
+    });
+  });
+
+  describe("error handling", () => {
+    it("throws an error when no provider is available", () => {
+      const spy = jest.spyOn(console, "error");
+      spy.mockImplementation(() => {});
+
+      const Component = () => {
+        const { locale } = useLocalization();
+
+        return <div>{locale}</div>;
+      };
+
+      expect(() => render(<Component />)).toThrowError(
+        `No localization provider is available
+
+Explanation and suggested fixes can be found at https://github.com/herecydev/gatsby-plugin-internationalization#no-localization-provider-is-available`
+      );
+
+      spy.mockRestore();
+    });
   });
 });
