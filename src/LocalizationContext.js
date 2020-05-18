@@ -1,8 +1,9 @@
 import * as React from "react";
+import { createContext } from "react";
 import { useState } from "react";
 import { navigate } from "gatsby";
 
-export const LocalizationContext = React.createContext();
+export const LocalizationContext = createContext(0);
 LocalizationContext.displayName = "Localization";
 
 export const LocalizationProvider = ({ children, pageContext }) => {
@@ -11,12 +12,12 @@ export const LocalizationProvider = ({ children, pageContext }) => {
     locale,
     defaultLocale,
     locales,
-    localizedNavigate: to =>
+    localizedNavigate: (to) =>
       navigate(
         locale && locale !== defaultLocale
           ? `${locale.toLowerCase()}/${to}`
           : to
-      )
+      ),
   });
 
   return (

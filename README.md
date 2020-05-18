@@ -107,3 +107,49 @@ The [React context](https://reactjs.org/docs/context.html) that is used by this 
 ```
 
 The [React context](https://reactjs.org/docs/context.html) that is used by this plugin. Can be used to provide more specific behavior.
+
+## FAQ
+
+### No localization provider is available
+
+There is no `<LocalizationContext.Provider />` available for either `<LocalizedLink />` or `useLocalization()` to use. There are 2 common reasons this can occur;
+
+#### Using wrapRootElement
+
+You are trying to consume localization information in `wrapRootElement`. Unfortunately because there is no page related information, the plugin cannot provide any localization related information.
+
+Fix:
+
+```jsx
+// ❌
+const wrapRootElement = ({ element }) => (
+  <MyLocalizationConsumer>{element}</MyLocalizationConsumer>
+);
+
+// ✅
+const wrapPageElement = ({ element }) => (
+  <MyLocalizationConsumer>{element}</MyLocalizationConsumer>
+);
+```
+
+#### Using wrapPageElement at a site level
+
+You are trying to consume localization information in `wrapPageElement` but using a site level plugin, i.e. in your gatsby-browser.js. Due to the way that plugins are ordered by gatsby, your site level will always "win" vs the gatsby-plugin-internationalization and will sit **higher** in the react tree. Again, we face a similar problem to above where the plugin cannot provide any localization related information.
+
+Fix:
+
+```jsx
+// ❌
+const wrapPageElement = ({ element }) => (
+  <MyLocalizationConsumer>{element}</MyLocalizationConsumer>
+);
+
+// ✅ We can add another LocalizationProvider above our consumer and all is right in the world 👌
+import { LocalizationProvider } from "gatsby-plugin-internationalization";
+
+const wrapPageElement = ({ element, props }) => (
+  <LocalizationProvider {...props}>
+    <MyLocalizationConsumer>{element}</MyLocalizationConsumer>
+  </LocalizationProvider>
+);
+```
