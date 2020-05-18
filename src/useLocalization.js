@@ -3,7 +3,7 @@ import { LocalizationContext } from "./LocalizationContext";
 
 const errorMessage = `No localization provider is available
 
-Explanation and suggested fixes can be found at https://github.com/herecydev/gatsby-plugin-internationalization`;
+Explanation and suggested fixes can be found at https://github.com/herecydev/gatsby-plugin-internationalization#no-localization-provider-is-available`;
 
 const useLocalization = () => {
   const context = useContext(LocalizationContext);
