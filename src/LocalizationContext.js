@@ -12,11 +12,12 @@ export const LocalizationProvider = ({ children, pageContext }) => {
     locale,
     defaultLocale,
     locales,
-    localizedNavigate: (to) =>
+    localizedNavigate: (to, options) =>
       navigate(
         locale && locale !== defaultLocale
           ? `${locale.toLowerCase()}/${to}`
-          : to
+          : to,
+        options
       ),
   });
 

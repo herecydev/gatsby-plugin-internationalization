@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { navigate } from "gatsby";
 import * as React from "react";
 import { LocalizedLink, useLocalization } from "../src/index";
@@ -23,9 +23,9 @@ describe("gatsby-plugin-internationalization", () => {
         return <div>{locale}</div>;
       };
 
-      const { getByText } = renderWithProvider(<Component />, "en-GB", "en-GB");
+      renderWithProvider(<Component />, "en-GB", "en-GB");
 
-      getByText("en-GB");
+      screen.getByText("en-GB");
     });
 
     it("returns default locale", () => {
@@ -35,9 +35,9 @@ describe("gatsby-plugin-internationalization", () => {
         return <div>{defaultLocale}</div>;
       };
 
-      const { getByText } = renderWithProvider(<Component />, "en-GB", "en-US");
+      renderWithProvider(<Component />, "en-GB", "en-US");
 
-      getByText("en-US");
+      screen.getByText("en-US");
     });
 
     it("returns all locales", () => {
@@ -53,10 +53,10 @@ describe("gatsby-plugin-internationalization", () => {
         );
       };
 
-      const { getByText } = renderWithProvider(<Component />, "en-GB", "en-GB");
+      renderWithProvider(<Component />, "en-GB", "en-GB");
 
       for (const locale of locales) {
-        getByText(locale);
+        screen.getByText(locale);
       }
     });
 
@@ -70,14 +70,10 @@ describe("gatsby-plugin-internationalization", () => {
           );
         };
 
-        const { getByText } = renderWithProvider(
-          <Component />,
-          "en-GB",
-          "en-GB"
-        );
+        renderWithProvider(<Component />, "en-GB", "en-GB");
 
-        fireEvent.click(getByText("Click"));
-        expect(navigate).toHaveBeenCalledWith("foo");
+        fireEvent.click(screen.getByText("Click"));
+        expect(navigate).toHaveBeenCalledWith("foo", undefined);
       });
 
       it("calls gatsby navigate with localized path when current locale is not the default locale", () => {
@@ -89,37 +85,50 @@ describe("gatsby-plugin-internationalization", () => {
           );
         };
 
-        const { getByText } = renderWithProvider(
-          <Component />,
-          "en-US",
-          "en-GB"
-        );
+        renderWithProvider(<Component />, "en-US", "en-GB");
 
-        fireEvent.click(getByText("Click"));
-        expect(navigate).toHaveBeenCalledWith("en-us/foo");
+        fireEvent.click(screen.getByText("Click"));
+        expect(navigate).toHaveBeenCalledWith("en-us/foo", undefined);
+      });
+
+      it("calls gatsby navigate with optional options", () => {
+        const Component = () => {
+          const { localizedNavigate } = useLocalization();
+
+          return (
+            <button onClick={() => localizedNavigate("foo", { replace: true })}>
+              Click
+            </button>
+          );
+        };
+
+        renderWithProvider(<Component />, "en-US", "en-GB");
+
+        fireEvent.click(screen.getByText("Click"));
+        expect(navigate).toHaveBeenCalledWith("en-us/foo", { replace: true });
       });
     });
   });
 
   describe("LocalizedLink", () => {
     it("Renders a standard href when current locale is the default locale", () => {
-      const { getByText } = renderWithProvider(
+      renderWithProvider(
         <LocalizedLink to="bar">Bar</LocalizedLink>,
         "en-GB",
         "en-GB"
       );
 
-      expect(getByText("Bar")).toHaveAttribute("href", "bar");
+      expect(screen.getByText("Bar")).toHaveAttribute("href", "bar");
     });
 
     it("Renders a localized href when current locale is not the default locale", () => {
-      const { getByText } = renderWithProvider(
+      renderWithProvider(
         <LocalizedLink to="bar">Bar</LocalizedLink>,
         "en-US",
         "en-GB"
       );
 
-      expect(getByText("Bar")).toHaveAttribute("href", "en-us/bar");
+      expect(screen.getByText("Bar")).toHaveAttribute("href", "en-us/bar");
     });
   });
 
