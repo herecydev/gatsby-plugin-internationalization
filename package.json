@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-internationalization",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "main": "index.js",
   "repository": "https://github.com/herecydev/gatsby-plugin-internationalization.git",
   "author": "herecydev <herecy@live.co.uk>",
