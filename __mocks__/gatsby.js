@@ -18,7 +18,7 @@ module.exports = {
     }) =>
       React.createElement("a", {
         ...rest,
-        href: to,
+        href: to.replace(/\/+/g, `/`),
       })
   ),
 };

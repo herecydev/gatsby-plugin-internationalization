@@ -66,14 +66,14 @@ describe("gatsby-plugin-internationalization", () => {
           const { localizedNavigate } = useLocalization();
 
           return (
-            <button onClick={() => localizedNavigate("foo")}>Click</button>
+            <button onClick={() => localizedNavigate("/foo")}>Click</button>
           );
         };
 
         renderWithProvider(<Component />, "en-GB", "en-GB");
 
         fireEvent.click(screen.getByText("Click"));
-        expect(navigate).toHaveBeenCalledWith("foo", undefined);
+        expect(navigate).toHaveBeenCalledWith("/foo", undefined);
       });
 
       it("calls gatsby navigate with localized path when current locale is not the default locale", () => {
@@ -88,7 +88,7 @@ describe("gatsby-plugin-internationalization", () => {
         renderWithProvider(<Component />, "en-US", "en-GB");
 
         fireEvent.click(screen.getByText("Click"));
-        expect(navigate).toHaveBeenCalledWith("en-us/foo", undefined);
+        expect(navigate).toHaveBeenCalledWith("/en-us/foo", undefined);
       });
 
       it("calls gatsby navigate with optional options", () => {
@@ -105,7 +105,7 @@ describe("gatsby-plugin-internationalization", () => {
         renderWithProvider(<Component />, "en-US", "en-GB");
 
         fireEvent.click(screen.getByText("Click"));
-        expect(navigate).toHaveBeenCalledWith("en-us/foo", { replace: true });
+        expect(navigate).toHaveBeenCalledWith("/en-us/foo", { replace: true });
       });
     });
   });
@@ -113,22 +113,22 @@ describe("gatsby-plugin-internationalization", () => {
   describe("LocalizedLink", () => {
     it("Renders a standard href when current locale is the default locale", () => {
       renderWithProvider(
-        <LocalizedLink to="bar">Bar</LocalizedLink>,
+        <LocalizedLink to="/bar">Bar</LocalizedLink>,
         "en-GB",
         "en-GB"
       );
 
-      expect(screen.getByText("Bar")).toHaveAttribute("href", "bar");
+      expect(screen.getByText("Bar")).toHaveAttribute("href", "/bar");
     });
 
     it("Renders a localized href when current locale is not the default locale", () => {
       renderWithProvider(
-        <LocalizedLink to="bar">Bar</LocalizedLink>,
+        <LocalizedLink to="/bar">Bar</LocalizedLink>,
         "en-US",
         "en-GB"
       );
 
-      expect(screen.getByText("Bar")).toHaveAttribute("href", "en-us/bar");
+      expect(screen.getByText("Bar")).toHaveAttribute("href", "/en-us/bar");
     });
   });
 
