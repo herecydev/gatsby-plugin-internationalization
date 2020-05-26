@@ -108,6 +108,24 @@ The [React context](https://reactjs.org/docs/context.html) that is used by this 
 
 The [React context](https://reactjs.org/docs/context.html) that is used by this plugin. Can be used to provide more specific behavior.
 
+### LocalizedRouter
+
+```jsx
+<LocalizedRouter basepath="/app">
+  <Details path="/details" />
+</LocalizedRouter>
+```
+
+Provides a `<Router />` from @reach/router that automatically has the correct locale prefixed to the basepath supplied.
+
+## Client-only routes/Matchpaths
+
+If a page has a matchPath set, it will automatically be prefixed with the locale. A [LocalizedRouter](#LocalizedRouter) is exported that will handle the prefixing of the basepath for the client-side routing.
+
+> ⚠ To take advantage of this behavior, you must remember that order of plugins matters, so if you are using `gatsby-plugin-create-client-paths` it must be configured **before** `gatsby-plugin-internationalization`
+
+For further information see the [matchpaths sample](https://github.com/herecydev/gatsby-plugin-internationalization/tree/master/samples/matchpaths).
+
 ## FAQ
 
 ### No localization provider is available
