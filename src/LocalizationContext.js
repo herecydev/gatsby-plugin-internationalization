@@ -8,17 +8,16 @@ LocalizationContext.displayName = "Localization";
 
 export const LocalizationProvider = ({ children, pageContext }) => {
   const { locale, defaultLocale, locales } = pageContext;
+  const localizePath = (path) =>
+    locale && locale !== defaultLocale
+      ? `/${locale.toLowerCase()}/${path}`
+      : path;
   const [localization] = useState({
     locale,
     defaultLocale,
     locales,
-    localizedNavigate: (to, options) =>
-      navigate(
-        locale && locale !== defaultLocale
-          ? `${locale.toLowerCase()}/${to}`
-          : to,
-        options
-      ),
+    localizePath,
+    localizedNavigate: (to, options) => navigate(localizePath(to), options),
   });
 
   return (

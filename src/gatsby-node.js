@@ -9,16 +9,22 @@ exports.onCreatePage = ({ page, actions }, pluginOptions) => {
   for (const locale of pluginOptions.locales) {
     const isDefault = pluginOptions.defaultLocale === locale;
     const path = isDefault ? page.path : `/${locale.toLowerCase()}${page.path}`;
+    const matchPath =
+      page.matchPath &&
+      (isDefault
+        ? page.matchPath
+        : `/${locale.toLowerCase()}${page.matchPath}`);
 
     createPage({
       ...page,
       path,
+      matchPath,
       context: {
         ...page.context,
         locale,
         defaultLocale: pluginOptions.defaultLocale,
-        locales: pluginOptions.locales
-      }
+        locales: pluginOptions.locales,
+      },
     });
   }
 };
