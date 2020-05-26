@@ -120,7 +120,7 @@ Provides a `<Router />` from @reach/router that automatically has the correct lo
 
 ## Client-only routes/Matchpaths
 
-If a page has a matchPath set, it will automatically be prefixed with the locale. A [LocalizedRouter](#LocalizedRouter) is exported that will handle the prefixing of the basepath for the client-side routing.
+If a page has a matchPath set, it will automatically be prefixed with the locale. A [LocalizedRouter](#LocalizedRouter) is exported that will handle the prefixing of the basepath for the client-side routing. Alternatively, you can use the `useLocalization` hook to form the paths yourself.
 
 > ⚠ To take advantage of this behavior, you must remember that order of plugins matters, so if you are using `gatsby-plugin-create-client-paths` it must be configured **before** `gatsby-plugin-internationalization`
 
