@@ -61,42 +61,37 @@ describe("gatsby-plugin-internationalization", () => {
     });
 
     describe("localizedNavigate", () => {
-      it("calls gatsby navigate with path when current locale is the default locale", () => {
-        const Component = () => {
-          const { localizedNavigate } = useLocalization();
+      test.each([
+        ["/foo", "en-GB", "en-GB", "/foo"],
+        ["/foo", "en-US", "en-GB", "/en-us/foo"],
+        ["foo", "en-GB", "en-GB", "foo"],
+        ["foo", "en-US", "en-GB", "foo"],
+        ["../foo", "en-GB", "en-GB", "../foo"],
+        ["../foo", "en-US", "en-GB", "../foo"],
+      ])(
+        "gatsby navigate uses locale prefix",
+        (to, currentLocale, defautLocale, expected) => {
+          const Component = () => {
+            const { localizedNavigate } = useLocalization();
 
-          return (
-            <button onClick={() => localizedNavigate("/foo")}>Click</button>
-          );
-        };
+            return <button onClick={() => localizedNavigate(to)}>Click</button>;
+          };
 
-        renderWithProvider(<Component />, "en-GB", "en-GB");
+          renderWithProvider(<Component />, currentLocale, defautLocale);
 
-        fireEvent.click(screen.getByText("Click"));
-        expect(navigate).toHaveBeenCalledWith("/foo", undefined);
-      });
-
-      it("calls gatsby navigate with localized path when current locale is not the default locale", () => {
-        const Component = () => {
-          const { localizedNavigate } = useLocalization();
-
-          return (
-            <button onClick={() => localizedNavigate("foo")}>Click</button>
-          );
-        };
-
-        renderWithProvider(<Component />, "en-US", "en-GB");
-
-        fireEvent.click(screen.getByText("Click"));
-        expect(navigate).toHaveBeenCalledWith("/en-us/foo", undefined);
-      });
+          fireEvent.click(screen.getByText("Click"));
+          expect(navigate).toHaveBeenCalledWith(expected, undefined);
+        }
+      );
 
       it("calls gatsby navigate with optional options", () => {
         const Component = () => {
           const { localizedNavigate } = useLocalization();
 
           return (
-            <button onClick={() => localizedNavigate("foo", { replace: true })}>
+            <button
+              onClick={() => localizedNavigate("/foo", { replace: true })}
+            >
               Click
             </button>
           );
@@ -111,25 +106,25 @@ describe("gatsby-plugin-internationalization", () => {
   });
 
   describe("LocalizedLink", () => {
-    it("Renders a standard href when current locale is the default locale", () => {
-      renderWithProvider(
-        <LocalizedLink to="/bar">Bar</LocalizedLink>,
-        "en-GB",
-        "en-GB"
-      );
-
-      expect(screen.getByText("Bar")).toHaveAttribute("href", "/bar");
-    });
-
-    it("Renders a localized href when current locale is not the default locale", () => {
-      renderWithProvider(
-        <LocalizedLink to="/bar">Bar</LocalizedLink>,
-        "en-US",
-        "en-GB"
-      );
-
-      expect(screen.getByText("Bar")).toHaveAttribute("href", "/en-us/bar");
-    });
+    test.each([
+      ["/foo", "en-GB", "en-GB", "/foo"],
+      ["/foo", "en-US", "en-GB", "/en-us/foo"],
+      ["foo", "en-GB", "en-GB", "foo"],
+      ["foo", "en-US", "en-GB", "foo"],
+      ["../foo", "en-GB", "en-GB", "../foo"],
+      ["../foo", "en-US", "en-GB", "../foo"],
+    ])(
+      "gatsby link uses locale prefix",
+      (to, currentLocale, defautLocale, expected) => {
+        renderWithProvider(
+          <LocalizedLink to={to}>Link</LocalizedLink>,
+          currentLocale,
+          defautLocale
+        );
+  
+        expect(screen.getByText("Link")).toHaveAttribute("href", expected);
+      }
+    );
   });
 
   describe("error handling", () => {
