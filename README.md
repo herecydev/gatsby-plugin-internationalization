@@ -8,10 +8,12 @@ By providing an array of locales, all pages in your site will automatically be p
 
 ## Configuration
 
-| Name          | Type     | Required | Description                                                                                                                                                                                                                                             | Example            |
-| ------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| locales       | string[] | Required | An array of locales, where each locale will be made available to each page. Each locale will be prefixed to the path, for example: `/gatsby-is-awesome/` becomes `/en-gb/gatsby-is-awesome/`. Use **ISO 639-1** and **ISO 3166** seperated with a hypen | ["en-GB", "en-US"] |
-| defaultLocale | string   | Optional | Prevents this locale being prefixed to the path. Useful if you have a predominant language. All other locales will still be prefixed to the path as normal                                                                                              | "en-GB"            |
+| Name          | Type     | Required | Description                                                                                                                                                                                                                                             | Example              |
+| ------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| locales       | string[] | Required | An array of locales, where each locale will be made available to each page. Each locale will be prefixed to the path, for example: `/gatsby-is-awesome/` becomes `/en-gb/gatsby-is-awesome/`. Use **ISO 639-1** and **ISO 3166** seperated with a hypen | ["en-GB", "en-US"]   |
+| defaultLocale | string   | Optional | Prevents this locale being prefixed to the path. Useful if you have a predominant language. All other locales will still be prefixed to the path as normal                                                                                              | "en-GB"              |
+| siteUrl       | string   | Optional | Required if "htmlTags" is true. The scheme and domain of the site                                                                                                                                                                                       | "https://mysite.com" |
+| htmlTags      | boolean  | Optional | Generates `<link rel="alternate" />` elements in the head, so site crawlers can detect alternate locales for each page                                                                                                                                    | true                 |
 
 ## Usage
 
